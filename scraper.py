@@ -80,6 +80,8 @@ def main():
       price = parse_data(soup)
       title = endpoint['name']
 
+      print("Price for '" + title + ", " + str(price) + "'")
+
       if price > 0:
         title_underscore = title.replace(' ', '_')
         csv_file = 'csv/' + title_underscore + '.csv'

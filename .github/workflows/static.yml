@@ -11,7 +11,7 @@ on:
 
   # Runs the workflow on a schedule
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/30 * * * *'
 
 concurrency:
   group: static

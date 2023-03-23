@@ -13,8 +13,7 @@ on:
   schedule:
     - cron: '*/30 * * * *'
 
-concurrency:
-  group: static
+
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

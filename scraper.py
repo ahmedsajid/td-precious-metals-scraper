@@ -22,7 +22,7 @@ SCRAPE_ENDPOINTS =  [
     "url": "https://preciousmetals.td.com/shop/en/tdmetals/silvers/p0245"
   },
   {
-    "name": "10 oz Royal Canadian Mint Silver Bar ",
+    "name": "10 oz Royal Canadian Mint Silver Bar",
     "url": "https://preciousmetals.td.com/shop/en/tdmetals/silvers/p0020"
   }
 ]

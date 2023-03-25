@@ -8,7 +8,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import pytz
 
-SCRAPE_ENDPOINTS =  [
+SCRAPE_ENDPOINTS = [
   {
     "name": "100 oz Royal Canadian Mint Silver Bar",
     "url": "https://preciousmetals.td.com/shop/en/tdmetals/silvers/p0021"
@@ -29,6 +29,7 @@ SCRAPE_ENDPOINTS =  [
 
 CSV_HEADERS = ['date', 'price']
 
+
 def scrape_endpoint(endpoint):
 
     response = requests.get(endpoint)
@@ -37,6 +38,7 @@ def scrape_endpoint(endpoint):
       return None
     else:
       return BeautifulSoup(response.text, 'html.parser')
+
 
 def parse_data(soup):
 
@@ -48,11 +50,13 @@ def parse_data(soup):
 
     return price_float
 
+
 def write_to_file(datetimenow, csv_file, price):
 
     with open(csv_file, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([datetimenow, price])
+
 
 def dedup_insert(input_file, current_value):
     if os.path.isfile(input_file):
@@ -65,6 +69,7 @@ def dedup_insert(input_file, current_value):
     else:
       return False
 
+
 def csv_to_plot(input_file, output_file, title):
 
     df = pd.read_csv(input_file, header=None, names=CSV_HEADERS, parse_dates=True)
@@ -76,6 +81,7 @@ def csv_to_plot(input_file, output_file, title):
 
     fig.write_html(output_file + '.html', include_plotlyjs='cdn')
     fig.write_image('images/' + output_file + '.png')
+
 
 def main():
 
@@ -103,6 +109,7 @@ def main():
         else:
           print("Unable to determine price")
           sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

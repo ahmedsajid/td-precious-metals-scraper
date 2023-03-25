@@ -25,4 +25,3 @@ repos:
     rev: v2.17.1
     hooks:
       - id: pylint
-        # additional_dependencies: [-rrequirements.txt]

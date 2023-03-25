@@ -31,9 +31,12 @@ CSV_HEADERS = ['date', 'price']
 
 def scrape_endpoint(endpoint):
 
-    html_text = requests.get(endpoint).text
+    response = requests.get(endpoint)
 
-    return BeautifulSoup(html_text, 'html.parser')
+    if response.status_code != 200:
+      return None
+    else:
+      return BeautifulSoup(response.text, 'html.parser')
 
 def parse_data(soup):
 
@@ -81,23 +84,25 @@ def main():
     for endpoint in SCRAPE_ENDPOINTS:
 
       soup = scrape_endpoint(endpoint['url'])
-      price = parse_data(soup)
-      title = endpoint['name']
 
-      print("Price for '" + title + ", " + str(price) + "'")
+      if soup is not None:
+        price = parse_data(soup)
+        title = endpoint['name']
 
-      if price > 0:
-        title_underscore = title.replace(' ', '_')
-        csv_file = 'csv/' + title_underscore + '.csv'
-        if dedup_insert(csv_file, price) is False:
-          write_to_file(datetimenow, csv_file, price)
-          csv_to_plot(csv_file, title_underscore, title)
+        print("Price for '" + title + ", " + str(price) + "'")
+
+        if price > 0:
+          title_underscore = title.replace(' ', '_')
+          csv_file = 'csv/' + title_underscore + '.csv'
+          if dedup_insert(csv_file, price) is False:
+            write_to_file(datetimenow, csv_file, price)
+            csv_to_plot(csv_file, title_underscore, title)
+          else:
+            print("Existing price same as last for '" + title + ", " + str(price) + "'")
+
         else:
-          print("Existing price same as last for '" + title + ", " + str(price) + "'")
-
-      else:
-        print("Unable to determine price")
-        sys.exit(1)
+          print("Unable to determine price")
+          sys.exit(1)
 
 if __name__ == '__main__':
     main()

@@ -36,9 +36,9 @@ def scrape_endpoint(endpoint):
     response = requests.get(endpoint)
 
     if response.status_code != 200:
-      return None
+        return None
     else:
-      return BeautifulSoup(response.text, 'html.parser')
+        return BeautifulSoup(response.text, 'html.parser')
 
 
 def parse_data(soup):
@@ -61,14 +61,15 @@ def write_to_file(datetimenow, csv_file, price):
 
 def dedup_insert(input_file, current_value):
     if os.path.isfile(input_file):
-      df = pd.read_csv(input_file, header=None, names=CSV_HEADERS, parse_dates=True)
-      last_value = df['price'].iloc[-1]
-      if last_value == current_value:
-        return True
-      else:
-        return False
+        df = pd.read_csv(input_file, header=None, names=CSV_HEADERS, parse_dates=True)
+        last_value = df['price'].iloc[-1]
+
+        if last_value == current_value:
+            return True
+        else:
+            return False
     else:
-      return False
+        return False
 
 
 def csv_to_plot(input_file, output_file, title):
@@ -90,26 +91,27 @@ def main():
 
     for endpoint in SCRAPE_ENDPOINTS:
 
-      soup = scrape_endpoint(endpoint['url'])
+        soup = scrape_endpoint(endpoint['url'])
 
-      if soup is not None:
-        price = parse_data(soup)
-        title = endpoint['name']
+        if soup is not None:
+            price = parse_data(soup)
+            title = endpoint['name']
 
-        print("Price for '" + title + ", " + str(price) + "'")
+            print("Price for '" + title + ", " + str(price) + "'")
 
-        if price > 0:
-          title_underscore = title.replace(' ', '_')
-          csv_file = 'csv/' + title_underscore + '.csv'
-          if dedup_insert(csv_file, price) is False:
-            write_to_file(datetimenow, csv_file, price)
-            csv_to_plot(csv_file, title_underscore, title)
-          else:
-            print("Existing price same as last for '" + title + ", " + str(price) + "'")
+            if price > 0:
+                title_underscore = title.replace(' ', '_')
+                csv_file = 'csv/' + title_underscore + '.csv'
 
-        else:
-          print("Unable to determine price")
-          sys.exit(1)
+              if dedup_insert(csv_file, price) is False:
+                  write_to_file(datetimenow, csv_file, price)
+                  csv_to_plot(csv_file, title_underscore, title)
+              else:
+                  print("Existing price same as last for '" + title + ", " + str(price) + "'")
+
+            else:
+                print("Unable to determine price")
+                sys.exit(1)
 
 
 if __name__ == '__main__':

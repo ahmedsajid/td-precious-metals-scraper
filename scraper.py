@@ -103,11 +103,11 @@ def main():
                 title_underscore = title.replace(' ', '_')
                 csv_file = 'csv/' + title_underscore + '.csv'
 
-              if dedup_insert(csv_file, price) is False:
-                  write_to_file(datetimenow, csv_file, price)
-                  csv_to_plot(csv_file, title_underscore, title)
-              else:
-                  print("Existing price same as last for '" + title + ", " + str(price) + "'")
+                if dedup_insert(csv_file, price) is False:
+                    write_to_file(datetimenow, csv_file, price)
+                    csv_to_plot(csv_file, title_underscore, title)
+                else:
+                    print("Existing price same as last for '" + title + ", " + str(price) + "'")
 
             else:
                 print("Unable to determine price")

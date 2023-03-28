@@ -79,7 +79,7 @@ def csv_to_plot(input_file, output_file, title):
     # fig = px.line(df, x='date', y='price', title=title, text='price', markers=True)
     # fig.update_traces(textposition='top center')
 
-    fig = px.line(df, x='date', y='price', title=title, markers=True)
+    fig = px.line(df, x='date', y='price', title=title, markers=False)
 
     fig.write_html(output_file + '.html', include_plotlyjs='cdn')
     fig.write_image('images/' + output_file + '.png')

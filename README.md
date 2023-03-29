@@ -5,6 +5,8 @@ This data is then output into csv files under `csv` folder. With the help of plo
 
 ![100 oz Royal Canadian Mint Silver Bar](./images/100_oz_Royal_Canadian_Mint_Silver_Bar.png)
 
+![10 oz Royal Canadian Mint Silver Bar](./images/10_oz_Royal_Canadian_Mint_Silver_Bar.png)
+
 ![10 oz TD Silver Bar](./images/10_oz_TD_Silver_Bar.png)
 
 ![10 oz TD Silver Stacker](./images/10_oz_TD_Silver_Stacker.png)

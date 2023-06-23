@@ -46,7 +46,7 @@ def parse_data(soup):
     # product_title = soup.find('h1', attrs={'class': 'td-product-details-banner-title'}).text.strip()
 
     product_price_span = soup.find('span', attrs={'class': 'td-product-tier-pricing-quantity-price', 'role': 'cell'}).text.strip()
-    price = re.search('(\d{1,3})(,\d{1,3})*(\.\d{1,})?', product_price_span).group(0).strip(',')
+    price = re.search(r"(\d{1,3})(,\d{1,3})*(\.\d{1,})?", product_price_span).group(0).strip(',')
     price_float = float(price.replace(',', ''))
 
     return price_float

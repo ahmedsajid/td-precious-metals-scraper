@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
   # Runs the workflow on a schedule
-  # schedule:
-  #   - cron: '*/30 * * * *'
+  schedule:
+    - cron: '0 23 * * *'
 
 
 
